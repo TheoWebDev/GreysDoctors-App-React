@@ -6,7 +6,7 @@ export async function createDoctor(contact) {
     return await axios.post(API_URL, contact);
 }
 
-export async function getAllDoctors(page = 0, size = 10) {
+export async function getDoctors(page = 0, size = 10) {
     return await axios.get(`${API_URL}?page=${page}&size=${size}`);
 }
 
