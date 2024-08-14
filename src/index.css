@@ -257,6 +257,15 @@ i {
 
 .contact__image {
 	width: 50px;
+	background-color: #3c3f3f;
+	display: flex;
+	justify-content: center;
+	border-radius: 50%;
+}
+
+.contact__image_name{
+	padding: 10px;
+	color: white;
 }
 
 .contact__image img {

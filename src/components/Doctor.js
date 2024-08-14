@@ -2,11 +2,22 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 const Doctor = ({ doctors }) => {
+
+  const sliceInitials = (name) => {
+    const splitName = name.split(' ');
+    return splitName.map(name => name.charAt(0)).join('');
+  };
+
+
   return (
     <Link to={`/doctors/${doctors.id}`} className={doctors.status === true ? 'contact__item_enabled' : 'contact__item_disabled'}>
       <div className="contact__header">
         <div className="contact__image">
-          <img src={doctors.photoUrl} alt={doctors.name}  />
+          {doctors.photoUrl === null ?
+            <h3 className='contact__image_name'>{sliceInitials(doctors.name)}</h3>
+            :
+            <img src={doctors.photoUrl} alt={doctors.name} />
+          }
         </div>
         <div className="contact__details">
           <p className="contact_name">{doctors.name}</p>
