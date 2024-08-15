@@ -258,19 +258,20 @@ i {
 .contact__image {
 	width: 50px;
 	background-color: #3c3f3f;
-	display: flex;
-	justify-content: center;
 	border-radius: 50%;
 }
 
 .contact__image_name{
-	padding: 10px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 50px;
+	height: 50px;
 	color: white;
 }
 
 .contact__image img {
 	width: 100%;
-	/* border: 2px solid var(--selective-blue); */
 	aspect-ratio: 1 / 1;
 	object-fit: cover;
 	object-position: center;
