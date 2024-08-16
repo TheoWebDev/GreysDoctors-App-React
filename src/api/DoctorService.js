@@ -1,12 +1,12 @@
 import axios from "axios";
 
-const API_URL = 'http://localhost:8080/doctors';
+const API_URL = process.env.REACT_APP_API_URL;
 
-export async function createDoctor(contact) {
-    return await axios.post(API_URL, contact);
+export async function createDoctor(doctor) {
+    return await axios.post(API_URL, doctor);
 }
 
-export async function getDoctors(page = 0, size = 10) {
+export async function getDoctors(page = 0, size = 12) {
     return await axios.get(`${API_URL}?page=${page}&size=${size}`);
 }
 
@@ -14,8 +14,8 @@ export async function getDoctor(id) {
     return await axios.get(`${API_URL}/${id}`);
 }
 
-export async function udpateDoctor(contact) {
-    return await axios.post(API_URL, contact);
+export async function udpateDoctor(doctor) {
+    return await axios.post(API_URL, doctor);
 }
 
 export async function udpatePhoto(formData) {

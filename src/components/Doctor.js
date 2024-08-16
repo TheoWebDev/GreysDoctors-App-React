@@ -8,7 +8,6 @@ const Doctor = ({ doctors }) => {
     return splitName.map(name => name.charAt(0)).join('');
   };
 
-
   return (
     <Link to={`/doctors/${doctors.id}`} className={doctors.status === true ? 'contact__item_enabled' : 'contact__item_disabled'}>
       <div className="contact__header">
