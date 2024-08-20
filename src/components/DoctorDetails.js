@@ -1,10 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { getDoctor } from '../api/DoctorService';
-// import { toastError, toastSuccess } from '../api/ToastService';
+import { toastError, toastSuccess } from '../api/ToastService';
+import { sliceInitials } from '../libs/SliceInitials';
+import { useNavigate } from 'react-router-dom';
 
-const DoctorDetail = ({ updateDoctor, updateImage }) => {
+export default function DoctorDetail({ updateDoctor, updateImage }) {
   const inputRef = useRef();
+  const navigate = useNavigate();
 	const { id } = useParams();
   const [doctor, setDoctor] = useState({
     id: '',
@@ -21,9 +24,8 @@ const DoctorDetail = ({ updateDoctor, updateImage }) => {
     try {
       const { data } = await getDoctor(id);
       setDoctor(data);
-      //toastSuccess('Contact retrieved');
     } catch (error) {
-      //toastError(error.message);
+      toastError(error.message);
     }
   };
 
@@ -38,22 +40,25 @@ const DoctorDetail = ({ updateDoctor, updateImage }) => {
       formData.append('id', id);
       await updateImage(formData);
       setDoctor((prev) => ({ ...prev, photoUrl: `${prev.photoUrl}?updated_at=${new Date().getTime()}` }));
-      //toastSuccess('Photo updated');
+      toastSuccess('Photo successfully updated');
+      fetchDoctor(id);
     } catch (error) {
-      console.log(error);
-      //toastError(error.message);
+      toastError(error.message);
     }
   };
 
-  const onChange = (event) => {
-    setDoctor({ ...doctor, [event.target.name]: event.target.value });
-  };
+  const onChange = (e) => {
+    const { name, type, checked, value } = e.target;
+    const finalValue = type === 'checkbox' ? checked : value;
+    setDoctor({ ...doctor, [name]: finalValue });
+};
 
-  const onUpdateDoctor = async (event) => {
-    event.preventDefault();
-    await updateDoctor(doctor);        
+  const onUpdateDoctor = async (e) => {
+    e.preventDefault();
+    await updateDoctor(doctor);
+    toastSuccess('Contact successfully updated');
     fetchDoctor(id);
-    //toastSuccess('Contact Updated');
+    navigate("/", { state: { updated: true} });
   };
 
   useEffect(() => {
@@ -65,7 +70,13 @@ const DoctorDetail = ({ updateDoctor, updateImage }) => {
     <Link to={'/doctors'} className='link'><i className='bi bi-arrow-left'></i> Back to list</Link>
       <div className='profile'>
         <div className='profile__details'>
-          <img src={doctor.photoUrl} alt={doctor.name} />
+        <div className="profile__details__image">
+          {doctor.photoUrl === null ?
+            <h3 className='contact__image_name'>{sliceInitials(doctor.name)}</h3>
+            :
+            <img src={doctor.photoUrl} alt={doctor.name} />
+          }
+        </div>
           <div className='profile__metadata'>
             <p className='profile__name'>{doctor.name}</p>
             <p className='profile__muted'>JPG or PNG. Max size of 10Mo</p>
@@ -99,7 +110,7 @@ const DoctorDetail = ({ updateDoctor, updateImage }) => {
                 </div>
                 <div className="input-box">
                   <span className="details">Status</span>
-                  <input type="text" value={doctor.status} onChange={onChange} name="status" required />
+                  <input type="checkbox" checked={doctor.status} onChange={onChange} name="status" />
                 </div>
               </div>
               <div className="form_footer">
@@ -110,10 +121,8 @@ const DoctorDetail = ({ updateDoctor, updateImage }) => {
         </div>
       </div>
     <form style={{ display: 'none' }}>
-      <input type='file' ref={inputRef} onChange={(event) => udpatePhoto(event.target.files[0])} name='file' accept='image/*' />
+      <input type='file' ref={inputRef} onChange={(e) => udpatePhoto(e.target.files[0])} name='file' accept='image/*' />
     </form>
   	</>
   )
 }
-
-export default DoctorDetail;

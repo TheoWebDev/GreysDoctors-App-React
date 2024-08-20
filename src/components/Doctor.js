@@ -1,12 +1,8 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { sliceInitials } from '../libs/SliceInitials';
 
-const Doctor = ({ doctors }) => {
-
-  const sliceInitials = (name) => {
-    const splitName = name.split(' ');
-    return splitName.map(name => name.charAt(0)).join('');
-  };
+export default function Doctor({ doctors }) {
 
   return (
     <Link to={`/doctors/${doctors.id}`} className={doctors.status === true ? 'contact__item_enabled' : 'contact__item_disabled'}>
@@ -44,5 +40,3 @@ const Doctor = ({ doctors }) => {
     </Link>
   )
 }
-
-export default Doctor

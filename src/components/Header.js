@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Header = ({ toggleModal, nbOfDoctor }) => {
+export default function Header({ toggleModal, nbOfDoctor }) {
   return (
     <header className='header'>
       <div className='container'>
@@ -15,4 +15,3 @@ const Header = ({ toggleModal, nbOfDoctor }) => {
   )
 }
 
-export default Header

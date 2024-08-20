@@ -226,6 +226,7 @@ i {
 	display: grid;
 	grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
 	gap: 1rem;
+	margin-bottom: 3rem;
 }
 
 .contact__item_enabled {
@@ -261,15 +262,6 @@ i {
 	border-radius: 50%;
 }
 
-.contact__image_name{
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 50px;
-	height: 50px;
-	color: white;
-}
-
 .contact__image img {
 	width: 100%;
 	aspect-ratio: 1 / 1;
@@ -277,6 +269,20 @@ i {
 	object-position: center;
 	border-radius: var(--radius-circle);
 	box-shadow: 0 0 10px rgba(0,0,0,.1);
+}
+
+.profile__details__image{
+	background-color: #3c3f3f;
+	border-radius: 50%;
+}
+
+.contact__image_name{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 50px;
+	height: 50px;
+	color: white;
 }
 
 .contact__details{
@@ -335,7 +341,7 @@ i {
 	margin-top: 2rem;
 	display: flex;
 	justify-content: center;
-	margin-bottom: 10rem;
+	margin-bottom: 3rem;
 }
 
 .pagination a {
@@ -364,7 +370,7 @@ i {
 }
 
 .pagination a:hover:not(.active) {
-	background-color: #ecf1f1;
+	background-color: #E0F2F4;
 }
 
 /* PROFILE */
@@ -384,18 +390,18 @@ i {
 	align-items: center;
 	flex-wrap: wrap;
 	gap: 1rem;
-	background-color: #ecf1f1;
+	background-color: #E0F2F4;
 	padding: 10px;
 	border-radius: var(--radius-5);
 }
 
 .profile__details img {
 	width: 120px;
-	border-radius: var(--radius-5);
-	border: 3px solid var(--selective-blue);
+	border-radius: 50%;
 	aspect-ratio: 1 / 1;
 	object-fit: cover;
 	object-position: center;
+	box-shadow: 0 0 10px rgba(0,0,0,.1);
 }
 
 .profile__name {
@@ -412,7 +418,7 @@ i {
 }
 
 .profile__settings {
-	background-color: #ecf1f1;
+	background-color: #E0F2F4;
 	padding: 10px;
 	border-radius: var(--radius-5);
 }

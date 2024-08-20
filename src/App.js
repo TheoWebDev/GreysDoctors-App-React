@@ -1,10 +1,10 @@
 // React
 import { useEffect, useRef, useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 // React Toast
-// import { toastError } from './api/ToastService';
-// import { ToastContainer } from 'react-toastify';
-// import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 // Components
 import Header from './components/Header'
 import DoctorList from './components/DoctorList'
@@ -12,14 +12,16 @@ import DoctorDetail from './components/DoctorDetails';
 import Loader from './components/Loader/Loader';
 // API
 import { getDoctors, createDoctor, udpatePhoto } from './api/DoctorService';
+import { toastError } from './api/ToastService';
 
 function App() {
   const modalRef = useRef();
   const fileRef = useRef();
+  const location = useLocation();
   const [data, setData] = useState({});
   const [currentPage, setCurrentPage] = useState(0);
-  const [ loading, setLoading ] = useState(true);
-  const [ error, setError ] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [file, setFile] = useState(undefined);
   const [values, setValues] = useState({
     name: '',
@@ -30,7 +32,7 @@ function App() {
     status: '',
   });
 
-  const getAllDoctors = async (page = 0, size = 12) => {
+  const getAllDoctors = async (page = 0, size = 8) => {
     try {
       setLoading(true);
       setCurrentPage(page);
@@ -38,7 +40,7 @@ function App() {
       setData(data);
     } catch (error) {
       setError(error.message);
-      //toastError(error.message);
+      toastError(error.message);
     } finally {
       setLoading(false);
     }
@@ -69,7 +71,7 @@ function App() {
       })
       getAllDoctors();
     } catch (error) {
-      //toastError(error.message);
+      toastError(error.message);
     }
   };
 
@@ -77,7 +79,7 @@ function App() {
     try {
       const { data } = await createDoctor(doctor);
     } catch (error) {
-      //toastError(error.message);
+      toastError(error.message);
     }
   };
 
@@ -85,7 +87,7 @@ function App() {
     try {
       const { data: photoUrl } = await udpatePhoto(formData);
     } catch (error) {
-      //toastError(error.message);
+      toastError(error.message);
     }
   };
 
@@ -93,7 +95,7 @@ function App() {
 
   useEffect(() => {
     getAllDoctors();
-  }, []);
+  }, [location.state]);
 
   return (
     <>
@@ -114,7 +116,8 @@ function App() {
             <Routes>
               <Route path='/' element={<Navigate to={'/doctors'} />} />
               <Route path="/doctors" element={<DoctorList data={data} currentPage={currentPage} getAllDoctors={getAllDoctors} />} />
-              <Route path="/doctors/:id" element={<DoctorDetail updateDoctor={updateDoctor} updateImage={updateImage} />} />
+              <Route path="/doctors/:id" element={<DoctorDetail updateDoctor={updateDoctor} updateImage={updateImage}  />} />
+              <Route path="*" element={<Loader />}/>
             </Routes>
           </div>
 
@@ -150,11 +153,11 @@ function App() {
                   </div>
                   <div className="input-box">
                     <span className="details">Account Status</span>
-                    <input type="text" value={values.status} onChange={onChange} name='status' required />
+                    <input type="checkbox" value={values.status} onChange={onChange} name='status' />
                   </div>
                   <div className="file-input">
                     <span className="details">Profile Photo</span>
-                    <input type="file" onChange={(event) => setFile(event.target.files[0])} ref={fileRef} name='photo' required />
+                    <input type="file" onChange={(e) => setFile(e.target.files[0])} ref={fileRef} name='photo' required />
                   </div>
                 </div>
                 <div className="form_footer">
@@ -164,7 +167,7 @@ function App() {
               </form>
             </div>
           </dialog>
-          {/* <ToastContainer /> */}
+          <ToastContainer />
         </>
       )}
     </>

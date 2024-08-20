@@ -2,14 +2,22 @@ import React from 'react'
 import Doctor from './Doctor'
 import { Link } from 'react-router-dom'
 
-const DoctorList = ({ data, currentPage, getAllDoctors }) => {
+export default function DoctorList({ data, currentPage, getAllDoctors }) {
 	
   return (
 		<main className='main'>
-      {data?.content?.length === 0 && <div>No Doctors. Please add a new doctor</div>}
+      {data?.content?.length === 0 &&
+        <div>
+          <p>No Doctors. Please add a new doctor</p>
+        </div>
+      }
 
       <ul className='contact__list'>
-        {data?.content?.length > 0 && data.content.map(doctor => <Doctor doctors={doctor} key={doctor.id} />)}
+        {data?.content?.length > 0 &&
+          data.content.map(doctor =>
+            <Doctor doctors={doctor} key={doctor.id} />
+          )
+        }
       </ul>
 
       {data?.content?.length > 0 && data?.totalPages > 1 &&
@@ -39,5 +47,3 @@ const DoctorList = ({ data, currentPage, getAllDoctors }) => {
     </main>
   )
 }
-
-export default DoctorList
