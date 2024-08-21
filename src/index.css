@@ -401,9 +401,9 @@ i {
 }
 
 .pagination a.active {
-	background-color: var(--selective-blue);
+	background-color: #9CDAD9;
 	color: white;
-	border: 1px solid var(--selective-blue);
+	border: 1px solid #9CDAD9;
 }
 
 .pagination a:hover:not(.active) {
