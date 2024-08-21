@@ -4,7 +4,6 @@ import { getDoctor } from '../api/DoctorService';
 import { toastError, toastSuccess } from '../api/ToastService';
 import { sliceInitials } from '../libs/SliceInitials';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 
 export default function DoctorDetail({ updateDoctor, updateImage }) {
   const inputRef = useRef();

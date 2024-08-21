@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { sliceInitials } from '../libs/SliceInitials';
-import { IconPhone } from '@tabler/icons-react';
 
 export default function Doctor({ doctors }) {
 
