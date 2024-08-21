@@ -40,7 +40,7 @@ function App() {
       setData(data);
     } catch (error) {
       setError(error.message);
-      toastError(error.message);
+      toastError(`${error.message} : Fetch Data Failed`);
     } finally {
       setLoading(false);
     }
@@ -124,7 +124,7 @@ function App() {
           {/* Modal */}
           <dialog ref={modalRef} className="modal" id="modal">
             <div className="modal__header">
-              <h3>New Contact</h3>
+              <h3>New Doctor</h3>
               <i onClick={() => toggleModal(false)} className="bi bi-x-lg"></i>
             </div>
             <div className="divider"></div>
@@ -158,6 +158,7 @@ function App() {
                   <div className="file-input">
                     <span className="details">Profile Photo</span>
                     <input type="file" onChange={(e) => setFile(e.target.files[0])} ref={fileRef} name='photo' required />
+                    <p className='profile__muted'>JPG or PNG. Max size of 10Mo</p>
                   </div>
                 </div>
                 <div className="form_footer">

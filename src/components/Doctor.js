@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { sliceInitials } from '../libs/SliceInitials';
+import { IconPhone } from '@tabler/icons-react';
 
 export default function Doctor({ doctors }) {
 
@@ -20,22 +21,26 @@ export default function Doctor({ doctors }) {
         </div>
       </div>
       <div className="contact__body">
-        <p><i className="bi bi-envelope"></i>{doctors.email}</p>
-        <p><i className="bi bi-geo"></i>{doctors.address}</p>
-        <p><i className="bi bi-telephone"></i>{doctors.phone}</p>
+        <div>
         <p>
           {doctors.status === true ?
-            <div>
-              <i className='bi bi-check-circle'></i>
+            <div className='statusActive'>
+              {/* <i className='bi bi-check-circle'></i> */}
+              <span className='spanActive'></span>
               Present
             </div>
           : 
-            <div>
-              <i className='bi bi-x-circle'></i>
+            <div className='statusActive'>
+              {/* <i className='bi bi-x-circle'></i> */}
+              <span className='spanDesactive'></span>
               Holidays
             </div>
           }
         </p>
+        </div>
+        <p><i className="bi bi-envelope"></i>{doctors.email}</p>
+        <p><i className="bi bi-geo"></i>{doctors.address}</p>
+        <p><i className="bi bi-telephone"></i>{doctors.phone}</p>
       </div>
     </Link>
   )

@@ -4,6 +4,7 @@ import { getDoctor } from '../api/DoctorService';
 import { toastError, toastSuccess } from '../api/ToastService';
 import { sliceInitials } from '../libs/SliceInitials';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 export default function DoctorDetail({ updateDoctor, updateImage }) {
   const inputRef = useRef();
@@ -56,9 +57,10 @@ export default function DoctorDetail({ updateDoctor, updateImage }) {
   const onUpdateDoctor = async (e) => {
     e.preventDefault();
     await updateDoctor(doctor);
-    toastSuccess('Contact successfully updated');
-    fetchDoctor(id);
-    navigate("/", { state: { updated: true} });
+    toastSuccess('Doctor successfully updated', () => {
+      fetchDoctor(id);
+      navigate("/", { state: { updated: true } });
+    });
   };
 
   useEffect(() => {

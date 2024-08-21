@@ -8,15 +8,20 @@ const toastConfig = {
     pauseOnHover: true,
     draggable: true,
     progress: undefined,
-    theme: 'light'
+    theme: 'light',
+    onClose: null
 }
 
 export function toastInfo(message){
     toast.info(message, toastConfig);
 }
 
-export function toastSuccess(message){
-    toast.success(message, toastConfig);
+// export function toastSuccess(message){
+//     toast.success(message, toastConfig);
+// }
+
+export function toastSuccess(message, onClose = null) {
+    toast.success(message, { ...toastConfig, onClose });
 }
 
 export function toastWarning(message){
