@@ -4,11 +4,14 @@ import { getDoctor } from '../api/DoctorService';
 import { toastError, toastSuccess } from '../api/ToastService';
 import { sliceInitials } from '../libs/SliceInitials';
 import { useNavigate } from 'react-router-dom';
+import Loader from './Loader/Loader';
+import NotFoundComponent from './NotFound/NotFound';
 
 export default function DoctorDetail({ updateDoctor, updateImage }) {
   const inputRef = useRef();
   const navigate = useNavigate();
 	const { id } = useParams();
+  const [error, setError] = useState(null);
   const [doctor, setDoctor] = useState({
     id: '',
     name: '',
@@ -23,8 +26,13 @@ export default function DoctorDetail({ updateDoctor, updateImage }) {
   const fetchDoctor = async (id) => {
     try {
       const { data } = await getDoctor(id);
-      setDoctor(data);
+      if (data) {
+        setDoctor(data);
+      } else {
+        throw new Error('Doctor not found');
+      }
     } catch (error) {
+      setError(error.message);
       toastError(error.message);
     }
   };
@@ -63,8 +71,14 @@ export default function DoctorDetail({ updateDoctor, updateImage }) {
   };
 
   useEffect(() => {
-    fetchDoctor(id);
+    if (id) {
+      fetchDoctor(id);
+    }
   }, [id]);
+
+  if (error) {
+    return <NotFoundComponent />
+  }
 
   return (
     <>
